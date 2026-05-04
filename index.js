@@ -1,5 +1,5 @@
 module.exports = async (req, res) => {
-  const shopifyDomain = "shop.jobavasar.com"; // Your Shopify primary domain
+  const shopifyDomain = "jobs24u.jobavasar.com"; // Your Shopify primary domain
   const targetURL = `https://${shopifyDomain}${req.url}`;
 
   try {
