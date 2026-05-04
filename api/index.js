@@ -1,7 +1,6 @@
 module.exports = async (req, res) => {
   const shopifyDomain = "jobs24u.jobavasar.com";
 
-  // Skip proxy for Shopify CDN assets — load directly
   if (req.url.includes("cdn.shopify.com")) {
     res.redirect(301, `https://cdn.shopify.com${req.url}`);
     return;
@@ -36,7 +35,7 @@ module.exports = async (req, res) => {
       }
     }
 
-    // Copy all headers from Shopify response
+    // Copy all headers
     response.headers.forEach((value, key) => {
       if (!["content-encoding", "transfer-encoding"].includes(key)) {
         res.setHeader(key, value);
@@ -45,24 +44,21 @@ module.exports = async (req, res) => {
 
     const contentType = response.headers.get("content-type") || "";
 
-    // Rewrite HTML content
+    // ✅ HTML rewrite
     if (contentType.includes("text/html")) {
       let body = await response.text();
-
-      // Replace all references to Shopify domain
       body = body
         .split(`https://${shopifyDomain}`)
         .join(`https://${req.headers.host}`);
       body = body
         .split(`http://${shopifyDomain}`)
         .join(`https://${req.headers.host}`);
-
       res.setHeader("content-type", "text/html; charset=utf-8");
       res.status(response.status).send(body);
       return;
     }
 
-    // CSS files — rewrite domain references inside CSS too
+    // ✅ CSS rewrite
     if (contentType.includes("text/css")) {
       let body = await response.text();
       body = body
@@ -73,7 +69,21 @@ module.exports = async (req, res) => {
       return;
     }
 
-    // All other files (JS, images, fonts) — pass through directly
+    // ✅ Sitemap & XML rewrite
+    if (req.url.includes("sitemap") || contentType.includes("xml")) {
+      let body = await response.text();
+      body = body
+        .split(`https://${shopifyDomain}`)
+        .join(`https://${req.headers.host}`);
+      body = body
+        .split(`http://${shopifyDomain}`)
+        .join(`https://${req.headers.host}`);
+      res.setHeader("content-type", "application/xml; charset=utf-8");
+      res.status(response.status).send(body);
+      return;
+    }
+
+    // All other files pass through
     const buffer = await response.arrayBuffer();
     res.status(response.status).send(Buffer.from(buffer));
 
