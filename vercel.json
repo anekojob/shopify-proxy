@@ -1,0 +1,19 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "https://shop.jobavasar.com/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Forwarded-Host",
+          "value": "shop.jobavasar.com"
+        }
+      ]
+    }
+  ]
+}
