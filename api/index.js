@@ -1,5 +1,5 @@
 module.exports = async (req, res) => {
-  const shopifyDomain = "talents.studysmarter.co.uk";
+  const shopifyDomain = "jobs24u.jobavasar.com";
 
   // ✅ Domain → Ad config
   const domainAds = {
