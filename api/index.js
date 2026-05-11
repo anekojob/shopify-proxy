@@ -3,7 +3,7 @@ module.exports = async (req, res) => {
 
   // ✅ Domain → Ad config
   const domainAds = {
-    "jobteam2.onlinejobhelp.com": {
+    "jobteam09.onlinejobhelp.com": {
       injectAd: `
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5953224202278307" crossorigin="anonymous"></script>
         <ins class="adsbygoogle"
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
       `,
       replaceSlot: "8815362625",
     },
-    "jobteam1.jobworld.info": {
+    "jobteam09.jobworld.info": {
       injectAd: `
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5953224202278307" crossorigin="anonymous"></script>
         <ins class="adsbygoogle"
@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
       `,
       replaceSlot: "7699529023",
     },
-    "jobteam6.car-kendra.com": {
+    "jobteam09.car-kendra.com": {
       injectAd: `
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5953224202278307" crossorigin="anonymous"></script>
         <ins class="adsbygoogle"
